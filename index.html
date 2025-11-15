@@ -90,9 +90,9 @@
 </style>
 </head>
 <body>
-  <audio autoplay loop muted>
-   <source src="corte.mp3" type="audio/mpeg">
-   </audio>
+  <audio id="musica" autoplay muted preload="auto">
+    <source src="love.mp3" type="audio/mpeg">
+</audio
 <h1>Eu & Você ❤️</h1>
 <p>Nossos momentos, guardados com amor.</p>
 
@@ -124,6 +124,27 @@ function criarCoracao() {
 }
 
 setInterval(criarCoracao, 400);
+</script>
+
+<script>
+const inicio = 42; // tempo onde a música deve começar (em segundos)
+const musica = document.getElementById("musica");
+
+musica.addEventListener("loadedmetadata", () => {
+    if (inicio < musica.duration) musica.currentTime = inicio;
+});
+
+// Chrome exige interação humana:
+function ativarSom() {
+    musica.muted = false;
+    musica.currentTime = inicio;
+    musica.play().catch(()=>{});
+    document.removeEventListener("click", ativarSom);
+    document.removeEventListener("touchstart", ativarSom);
+}
+
+document.addEventListener("click", ativarSom);
+document.addEventListener("touchstart", ativarSom);
 </script>
 
 </body>
