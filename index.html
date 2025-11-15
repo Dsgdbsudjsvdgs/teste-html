@@ -1,151 +1,782 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nossas Fotos ❤️</title>
-
-<style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: #1a1a1a;
-        color: white;
-        font-family: "Poppins", sans-serif;
-        text-align: center;
-        overflow-x: hidden;
-    }
-
-    /* Fundo romantico com brilho */
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: radial-gradient(circle at center, #ff4d6d40, #000);
-        z-index: -1;
-    }
-
-    h1 {
-        margin-top: 30px;
-        font-size: 40px;
-        color: #ff4d6d;
-        text-shadow: 0 0 20px #ff4d6d;
-    }
-
-    p {
-        margin-top: -10px;
-        margin-bottom: 30px;
-        opacity: 0.7;
-    }
-
-    /* ================= GALERIA ================= */
-
-    .gallery-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr); /* 5 fotos por linha */
-        gap: 1rem;
-        padding: 20px;
-        max-width: 1600px;
-        margin: 0 auto;
-    }
-
-    .gallery-grid img {
-        width: 100%;
-        aspect-ratio: 1/1; /* Mantém quadrado */
-        object-fit: cover;
-        border-radius: 20px;
-        border: 3px solid #ff4d6d;
-        box-shadow: 0 0 20px #ff4d6d80;
-        transition: all 0.3s ease;
-    }
-
-    /* Zoom suave ao tocar/passar o mouse */
-    .gallery-grid img:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 25px #ff4d6d;
-    }
-
-    /* ================= CORAÇÕES ================= */
-
-    .coracao {
-        position: fixed;
-        color: #ff4d6d;
-        font-size: 22px;
-        animation: subir 6s linear infinite;
-        opacity: 0.7;
-        z-index: -1;
-    }
-
-    @keyframes subir {
-        0% { transform: translateY(100vh) translateX(0); opacity: 1; }
-        100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
-    }
-
-    /* Ajuste para telas pequenas */
-    @media (max-width: 700px) {
-        .gallery-grid {
-            grid-template-columns: repeat(2, 1fr); /* 2 por linha no celular */
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memórias - Galeria Romântica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-    }
-</style>
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(to bottom, #fef3f2, #fce7e6, #fce4e3);
+            color: #4a2c2a;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .container {
+                padding: 0 2rem;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: relative;
+            overflow: hidden;
+            padding-top: 3rem;
+            padding-bottom: 2rem;
+        }
+
+        .header-bg {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+        }
+
+        .header-bg-circle-1 {
+            position: absolute;
+            top: 0;
+            left: 25%;
+            width: 288px;
+            height: 288px;
+            background: #f43f5e;
+            border-radius: 50%;
+            mix-blend-mode: multiply;
+            filter: blur(3rem);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .header-bg-circle-2 {
+            position: absolute;
+            top: 0;
+            right: 25%;
+            width: 288px;
+            height: 288px;
+            background: #ec4899;
+            border-radius: 50%;
+            mix-blend-mode: multiply;
+            filter: blur(3rem);
+            animation: pulse 4s ease-in-out infinite 2s;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        .header-content {
+            position: relative;
+            text-align: center;
+        }
+
+        .header-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .heart {
+            width: 24px;
+            height: 24px;
+            color: #be185d;
+            fill: #be185d;
+        }
+
+        .header-decoration-text {
+            font-size: 0.875rem;
+            color: #be185d;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .title-container {
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+        }
+
+        .title-container:hover .edit-icon {
+            opacity: 1;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            color: #6b1f35;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        .title-container:hover h1 {
+            color: #a83a52;
+        }
+
+        .edit-icon {
+            width: 20px;
+            height: 20px;
+            color: #f472b6;
+            margin: 0 auto;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .description-container {
+            max-width: 42rem;
+            margin: 0 auto;
+            cursor: pointer;
+        }
+
+        .description-container:hover .edit-icon-desc {
+            opacity: 1;
+        }
+
+        .description-container p {
+            font-size: 1.125rem;
+            color: #9f1239;
+            line-height: 1.8;
+            transition: color 0.3s ease;
+        }
+
+        .description-container:hover p {
+            color: #be185d;
+        }
+
+        .edit-icon-desc {
+            width: 16px;
+            height: 16px;
+            color: #f472b6;
+            margin: 0.5rem auto 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.15);
+            max-width: 500px;
+            width: 90%;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            font-size: 1.5rem;
+            color: #6b1f35;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .modal-input, .modal-textarea {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 2px solid #f472b6;
+            border-radius: 0.5rem;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            color: #4a2c2a;
+        }
+
+        .modal-input:focus, .modal-textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.1);
+            border-color: #be185d;
+        }
+
+        .modal-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: flex-end;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-save {
+            background-color: #be185d;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background-color: #9d174d;
+        }
+
+        .btn-cancel {
+            background-color: #d1d5db;
+            color: #374151;
+        }
+
+        .btn-cancel:hover {
+            background-color: #9ca3af;
+        }
+
+        /* Gallery */
+        .gallery {
+            padding: 4rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .photo-item {
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        .photo-item:nth-child(1) { animation-delay: 0s; }
+        .photo-item:nth-child(2) { animation-delay: 0.1s; }
+        .photo-item:nth-child(3) { animation-delay: 0.2s; }
+        .photo-item:nth-child(4) { animation-delay: 0.3s; }
+        .photo-item:nth-child(5) { animation-delay: 0.4s; }
+        .photo-item:nth-child(6) { animation-delay: 0.5s; }
+        .photo-item:nth-child(7) { animation-delay: 0.6s; }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .photo-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-wrapper:hover {
+            box-shadow: 0 20px 40px rgba(139, 69, 19, 0.25);
+            transform: scale(1.05);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #fce7e6 0%, #fbcfe8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.2;
+        }
+
+        .photo-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .photo-number {
+            font-size: 3.5rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: bold;
+            color: #fbcfe8;
+            opacity: 0.3;
+        }
+
+        .photo-label {
+            color: #f472b6;
+            font-size: 0.875rem;
+            opacity: 0.5;
+            margin-top: 0.5rem;
+        }
+
+        .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(139, 69, 19, 0.4), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1rem;
+        }
+
+        .photo-wrapper:hover .photo-overlay {
+            opacity: 1;
+        }
+
+        .photo-overlay-text {
+            color: white;
+            font-size: 0.875rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .photo-border {
+            position: absolute;
+            inset: 0;
+            border: 2px solid #fbcfe8;
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .photo-wrapper:hover .photo-border {
+            opacity: 1;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid #fbcfe8;
+        }
+
+        .footer-decoration {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-text {
+            text-align: center;
+            color: #be185d;
+            font-size: 0.875rem;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* Info section */
+        .info-section {
+            background-color: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #fbcfe8;
+            padding: 1.5rem 0;
+        }
+
+        .info-text {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #9f1239;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .info-text strong {
+            color: #6b1f35;
+        }
+    </style>
 </head>
 <body>
-  <audio id="musica" autoplay muted preload="auto">
-    <source src="cort.mp3" type="audio/mpeg">
-</audio
-<h1>Eu & Você ❤️</h1>
-<p>Nossos momentos, guardados com amor.</p>
-
-<!-- ================= GALERIA ================= -->
-<div class="gallery-grid">
-    <img src="1.jpg">
-    <img src="2.jpg">
-    <img src="3.jpg">
-    <img src="4.jpg">
-    <img src="5.jpg">
-    <img src="6.jpg">
-    <img src="7.jpg">
-</div>
-
-<!-- ================= CORAÇÕES ================= -->
-<script>
-function criarCoracao() {
-    const coracao = document.createElement("div");
-    coracao.classList.add("coracao");
-    coracao.innerHTML = "❤";
-
-    coracao.style.left = Math.random() * 100 + "vw";
-    coracao.style.fontSize = (18 + Math.random() * 12) + "px";
-    coracao.style.animationDuration = (5 + Math.random() * 3) + "s";
-
-    document.body.appendChild(coracao);
-
-    setTimeout(() => coracao.remove(), 8000);
-}
-
-setInterval(criarCoracao, 400);
-</script>
+ 
+ <audio id="musica" autoplay loop>
+  <source src="corte.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-const inicio = 42; // tempo onde a música deve começar (em segundos)
-const musica = document.getElementById("musica");
+  // Escolha o tempo em segundos onde a música deve começar
+  const inicio = 0; // exemplo: começar aos 42 segundos
 
-musica.addEventListener("loadedmetadata", () => {
-    if (inicio < musica.duration) musica.currentTime = inicio;
-});
+  const musica = document.getElementById("musica");
 
-// Chrome exige interação humana:
-function ativarSom() {
-    musica.muted = false;
+  // Garantir que o áudio carregue os metadados antes de mudar currentTime
+  musica.addEventListener("loadedmetadata", () => {
     musica.currentTime = inicio;
-    musica.play().catch(()=>{});
-    document.removeEventListener("click", ativarSom);
-    document.removeEventListener("touchstart", ativarSom);
-}
+  });
 
-document.addEventListener("click", ativarSom);
-document.addEventListener("touchstart", ativarSom);
+  // Chrome só permite tirar mute após interação
+  document.addEventListener("click", () => {
+    musica.muted = false;
+    musica.currentTime = inicio; // garantir o início correto
+    musica.play();
+  }, { once: true });
 </script>
 
+<!-- Header -->
+    <header class="header">
+        <div class="header-bg">
+            <div class="header-bg-circle-1"></div>
+            <div class="header-bg-circle-2"></div>
+        </div>
+
+        <div class="container header-content">
+            <div class="header-decoration">
+                <svg class="heart" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span class="header-decoration-text">MEMÓRIAS ESPECIAIS</span>
+                <svg class="heart" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+            </div>
+
+            <div class="title-container" onclick="openTitleModal()">
+                <h1 id="mainTitle">Nossas Memórias</h1>
+                <svg class="edit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+            </div>
+
+            <div class="description-container" onclick="openDescModal()">
+                <p id="mainDescription">Uma coleção de momentos especiais que compartilhamos juntos. Cada foto conta uma história de amor, risadas e momentos inesquecíveis.</p>
+                <svg class="edit-icon-desc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery -->
+    <section class="gallery">
+        <div class="container">
+            <div class="gallery-grid">
+                <!-- FOTO 1 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto1.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="1.jpg" alt="Foto 1">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 1</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+
+                <!-- FOTO 2 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto2.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="2.jpg" alt="Foto 2">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 2</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+
+                <!-- FOTO 3 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto3.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="3.jpg" alt="Foto 3">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 3</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+
+                <!-- FOTO 4 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto4.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="4.jpg" alt="Foto 4">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 4</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+
+                <!-- FOTO 5 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto5.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="5.jpg" alt="Foto 5">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 5</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+
+                <!-- FOTO 6 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto6.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="6.jpg" alt="Foto 6">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 6</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+
+                <!-- FOTO 7 - ALTERE AQUI -->
+                <div class="photo-item">
+                    <div class="photo-wrapper">
+                        <div class="photo-placeholder">
+                            <!-- TROQUE "foto7.jpg" PELO CAMINHO DA SUA FOTO -->
+                            <img src="7.jpg" alt="Foto 7">
+                        </div>
+                        <div class="photo-overlay">
+                            <span class="photo-overlay-text">Foto 7</span>
+                        </div>
+                        <div class="photo-border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-decoration">
+                <div style="width: 32px; height: 1px; background: #fbcfe8;"></div>
+                <svg class="heart" style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <div style="width: 32px; height: 1px; background: #fbcfe8;"></div>
+            </div>
+            <p class="footer-text">Feito com amor e memórias ✨</p>
+        </div>
+    </footer>
+
+    <!-- Info Section -->
+    <div class="info-section">
+        <div class="container">
+            <p class="info-text">
+                💡 <strong>quero que vc seja o meu universo:</strong> Coloque suas imagens (foto1.jpg, foto2.jpg, etc) na mesma pasta do arquivo HTML e altere os nomes nos campos <strong>src="foto1.jpg"</strong> acima.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="titleModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Editar Título</div>
+            <input type="text" id="titleInput" class="modal-input" placeholder="Digite o título">
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeTitleModal()">Cancelar</button>
+                <button class="btn-save" onclick="saveTitleModal()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="descModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">Editar Descrição</div>
+            <textarea id="descInput" class="modal-textarea" placeholder="Digite a descrição"></textarea>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeDescModal()">Cancelar</button>
+                <button class="btn-save" onclick="saveDescModal()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Title Modal
+        function openTitleModal() {
+            const modal = document.getElementById('titleModal');
+            const input = document.getElementById('titleInput');
+            const title = document.getElementById('mainTitle');
+            input.value = title.textContent;
+            modal.classList.add('show');
+            input.focus();
+        }
+
+        function closeTitleModal() {
+            document.getElementById('titleModal').classList.remove('show');
+        }
+
+        function saveTitleModal() {
+            const input = document.getElementById('titleInput');
+            const title = document.getElementById('mainTitle');
+            if (input.value.trim()) {
+                title.textContent = input.value;
+                closeTitleModal();
+            }
+        }
+
+        // Description Modal
+        function openDescModal() {
+            const modal = document.getElementById('descModal');
+            const textarea = document.getElementById('descInput');
+            const desc = document.getElementById('mainDescription');
+            textarea.value = desc.textContent;
+            modal.classList.add('show');
+            textarea.focus();
+        }
+
+        function closeDescModal() {
+            document.getElementById('descModal').classList.remove('show');
+        }
+
+        function saveDescModal() {
+            const textarea = document.getElementById('descInput');
+            const desc = document.getElementById('mainDescription');
+            if (textarea.value.trim()) {
+                desc.textContent = textarea.value;
+                closeDescModal();
+            }
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const titleModal = document.getElementById('titleModal');
+            const descModal = document.getElementById('descModal');
+            
+            if (event.target === titleModal) {
+                closeTitleModal();
+            }
+            if (event.target === descModal) {
+                closeDescModal();
+            }
+        }
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeTitleModal();
+                closeDescModal();
+            }
+        });
+
+        // Enter key to save
+        document.getElementById('titleInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                saveTitleModal();
+            }
+        });
+
+        document.getElementById('descInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && event.ctrlKey) {
+                saveDescModal();
+            }
+        });
+    </script>
 </body>
 </html>
