@@ -5,19 +5,18 @@ body {
 
 .galeria {
     display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
     justify-content: center;
-    padding: 20px;
+    gap: 20px;
+    flex-wrap: wrap; /* permite quebrar quando tela for pequena */
 }
 
-.foto {
-    width: 120px;
-    height: 120px;
+.galeria img {
+    width: 250px; /* ajuste o tamanho que quiser */
+    height: 250px;
     object-fit: cover;
-    border-radius: 15px;
-    animation: pulse 1.5s infinite ease-in-out;
+    border-radius: 20px;
 }
+
 
 @keyframes pulse {
     0%   { transform: scale(1); }
