@@ -1,32 +1,59 @@
-body {
-    margin: 0;
-    background: #000;
+/* Paleta romântica */
+:root {
+    --rosa-claro: #ffb4d9;
+    --rosa-medio: #ff6fb7;
+    --rosa-forte: #ff3fa5;
+    --rosa-roxo: #d34ad6;
+    --roxo-claro: #b27dff;
+    --roxo-medio: #9b4dff;
+    --roxo-profundo: #6a0dad;
+    --branco-suave: #fff7fc;
 }
 
+/* Fundo */
+body {
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, var(--rosa-claro), var(--roxo-claro));
+    font-family: Arial, sans-serif;
+    color: var(--roxo-profundo);
+    text-align: center;
+}
+
+/* Galeria estável SEM bagunçar o texto */
 .galeria {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap; /* permite quebrar quando tela for pequena */
+    align-items: flex-start; /* impede que o texto seja puxado */
+
+    gap: 15px;
+    flex-wrap: wrap; /* Se a tela for pequena, as fotos descem sem quebrar tudo */
+    margin-bottom: 25px;
 }
 
-.galeria img {
-    width: 250px; /* ajuste o tamanho que quiser */
-    height: 250px;
-    object-fit: cover;
-    border-radius: 20px;
+/* Fotos com tamanho fixo e sem estourar o layout */
+.foto {
+    width: 150px;
+    height: 150px;
+    object-fit: cover; /* evita que foto estique ou deforme */
+    border-radius: 12px;
+    border: 4px solid var(--rosa-forte);
+    box-shadow: 0 0 12px var(--rosa-roxo);
+    transition: transform 0.3s ease;
 }
 
-
-@keyframes pulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.08); }
-    100% { transform: scale(1); }
+.foto:hover {
+    transform: scale(1.05);
 }
 
-@media (max-width: 480px) {
-    .foto {
-        width: 95px;
-        height: 95px;
-    }
+/* Texto fixo e estável */
+.texto {
+    background: var(--branco-suave);
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 18px;
+    width: 90%;
+    max-width: 500px;   /* impede que o texto fique largo demais */
+    margin: 0 auto;
+    box-shadow: 0 0 10px var(--rosa-roxo);
 }
