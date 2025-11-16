@@ -1,4 +1,4 @@
-/* Paleta romântica */
+/* ---------------------- PALETA ROMÂNTICA ---------------------- */
 :root {
     --rosa-claro: #ffb4d9;
     --rosa-medio: #ff6fb7;
@@ -10,7 +10,7 @@
     --branco-suave: #fff7fc;
 }
 
-/* Fundo geral */
+/* ---------------------- FUNDO GERAL ---------------------- */
 body {
     margin: 0;
     padding: 20px;
@@ -21,63 +21,74 @@ body {
     overflow-x: hidden;
 }
 
-/* ----------- GALERIA ------------ */
-.galeria {
-    display: flex;
-    flex-wrap: nowrap;          /* impede quebrar linha */
-    overflow-x: auto;           /* rolagem horizontal no mobile */
-    scroll-snap-type: x mandatory;
-    gap: 12px;
-    padding: 12px;
+/* ---------------------- CARROSSEL INFINITO ---------------------- */
+.carrossel {
+    width: 100%;
+    overflow: hidden;
     margin-bottom: 25px;
 }
 
-.galeria::-webkit-scrollbar {
-    display: none;              /* esconde barra no Chrome/Safari */
+.faixa {
+    display: flex;
+    gap: 18px;
+
+    /* Animação infinita da faixa */
+    animation: deslizar 22s linear infinite;
 }
 
+/* Fotos grandes e animadas */
 .foto {
     flex: 0 0 auto;
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     object-fit: cover;
-    border-radius: 16px;
-    border: 4px solid var(--rosa-forte);
-    box-shadow: 0 0 12px var(--rosa-roxo);
-    scroll-snap-align: center;
 
-    /* animação suave */
-    animation: pulsar 3s infinite ease-in-out;
+    border-radius: 18px;
+    border: 4px solid var(--rosa-forte);
+    box-shadow: 0 0 14px var(--rosa-roxo);
+
+    animation: pulsar 3s ease-in-out infinite;
     transition: transform 0.3s ease;
 }
 
+/* Toque no mobile */
 .foto:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
 }
 
-/* Efeito pulsar romântico */
+/* Animação de pulsar */
 @keyframes pulsar {
     0% { transform: scale(1); }
-    50% { transform: scale(1.04); }
+    50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
-/* ----------- TEXTO ------------ */
+/* Loop infinito suave */
+@keyframes deslizar {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* ---------------------- TEXTO / CARTA ---------------------- */
 .texto {
     background: var(--branco-suave);
     padding: 20px;
-    border-radius: 14px;
+    border-radius: 16px;
     font-size: 18px;
     width: 90%;
-    max-width: 500px;
+    max-width: 520px;
     margin: 0 auto;
     box-shadow: 0 0 12px var(--rosa-roxo);
 
-    /* animação suave ao aparecer */
     animation: surgir 0.8s ease forwards;
     opacity: 0;
 }
 
+/* Efeito de aparecer suave */
 @keyframes surgir {
     from {
         transform: translateY(20px);
@@ -89,9 +100,9 @@ body {
     }
 }
 
-/* parágrafos delicados */
+/* Parágrafos bonitos */
 .texto p {
-    line-height: 1.5;
+    line-height: 1.55;
     margin: 12px 0;
     color: var(--roxo-profundo);
 }
@@ -102,18 +113,19 @@ body {
     font-size: 20px;
 }
 
-/* ---------- MOBILE -------------- */
-
+/* ---------------------- MOBILE ---------------------- */
 @media (max-width: 500px) {
+
     .foto {
-        width: 130px;
-        height: 130px;
+        width: 160px;
+        height: 160px;
         border-width: 3px;
-        border-radius: 14px;
+        border-radius: 16px;
     }
 
     .texto {
         font-size: 17px;
         padding: 18px;
+        border-radius: 14px;
     }
 }
