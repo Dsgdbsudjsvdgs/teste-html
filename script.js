@@ -1,18 +1,24 @@
-<script>
-  // Escolha o tempo em segundos onde a música deve começar
-  const inicio = 0; // exemplo: começar aos 42 segundos
+document.addEventListener("DOMContentLoaded", function () {
+    const audio = document.getElementById("musica");
 
-  const musica = document.getElementById("musica");
-
-  // Garantir que o áudio carregue os metadados antes de mudar currentTime
-  musica.addEventListener("loadedmetadata", () => {
-    musica.currentTime = inicio;
-  });
-
-  // Chrome só permite tirar mute após interação
-  document.addEventListener("click", () => {
-    musica.muted = false;
-    musica.currentTime = inicio; // garantir o início correto
-    musica.play();
-  }, { once: true });
-</script>
+    // Toca mutado primeiro (Chrome/Safari permitem)
+    audio.play().then(() => {
+        setTimeout(() => {
+            audio.muted = false;
+            audio.volume = 1.0;
+            audio.play().catch(() => {
+                document.body.addEventListener("click", () => {
+                    audio.muted = false;
+                    audio.volume = 1.0;
+                    audio.play();
+                }, { once: true });
+            });
+        }, 1000);
+    }).catch(() => {
+        document.body.addEventListener("click", () => {
+            audio.muted = false;
+            audio.volume = 1.0;
+            audio.play();
+        }, { once: true });
+    });
+});
