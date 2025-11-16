@@ -10,7 +10,7 @@
     --branco-suave: #fff7fc;
 }
 
-/* Fundo */
+/* Fundo geral */
 body {
     margin: 0;
     padding: 20px;
@@ -18,42 +18,102 @@ body {
     font-family: Arial, sans-serif;
     color: var(--roxo-profundo);
     text-align: center;
+    overflow-x: hidden;
 }
 
-/* Galeria estável SEM bagunçar o texto */
+/* ----------- GALERIA ------------ */
 .galeria {
     display: flex;
-    justify-content: center;
-    align-items: flex-start; /* impede que o texto seja puxado */
-
-    gap: 15px;
-    flex-wrap: wrap; /* Se a tela for pequena, as fotos descem sem quebrar tudo */
+    flex-wrap: nowrap;          /* impede quebrar linha */
+    overflow-x: auto;           /* rolagem horizontal no mobile */
+    scroll-snap-type: x mandatory;
+    gap: 12px;
+    padding: 12px;
     margin-bottom: 25px;
 }
 
-/* Fotos com tamanho fixo e sem estourar o layout */
+.galeria::-webkit-scrollbar {
+    display: none;              /* esconde barra no Chrome/Safari */
+}
+
 .foto {
+    flex: 0 0 auto;
     width: 150px;
     height: 150px;
-    object-fit: cover; /* evita que foto estique ou deforme */
-    border-radius: 12px;
+    object-fit: cover;
+    border-radius: 16px;
     border: 4px solid var(--rosa-forte);
     box-shadow: 0 0 12px var(--rosa-roxo);
+    scroll-snap-align: center;
+
+    /* animação suave */
+    animation: pulsar 3s infinite ease-in-out;
     transition: transform 0.3s ease;
 }
 
-.foto:hover {
-    transform: scale(1.05);
+.foto:active {
+    transform: scale(0.95);
 }
 
-/* Texto fixo e estável */
+/* Efeito pulsar romântico */
+@keyframes pulsar {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+    100% { transform: scale(1); }
+}
+
+/* ----------- TEXTO ------------ */
 .texto {
     background: var(--branco-suave);
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 18px;
     width: 90%;
-    max-width: 500px;   /* impede que o texto fique largo demais */
+    max-width: 500px;
     margin: 0 auto;
-    box-shadow: 0 0 10px var(--rosa-roxo);
+    box-shadow: 0 0 12px var(--rosa-roxo);
+
+    /* animação suave ao aparecer */
+    animation: surgir 0.8s ease forwards;
+    opacity: 0;
+}
+
+@keyframes surgir {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* parágrafos delicados */
+.texto p {
+    line-height: 1.5;
+    margin: 12px 0;
+    color: var(--roxo-profundo);
+}
+
+/* Destaque especial */
+.texto strong {
+    color: var(--rosa-forte);
+    font-size: 20px;
+}
+
+/* ---------- MOBILE -------------- */
+
+@media (max-width: 500px) {
+    .foto {
+        width: 130px;
+        height: 130px;
+        border-width: 3px;
+        border-radius: 14px;
+    }
+
+    .texto {
+        font-size: 17px;
+        padding: 18px;
+    }
 }
